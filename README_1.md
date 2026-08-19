@@ -178,6 +178,8 @@ Test Case 7 – ICMP Connectivity:
 | 6 | Telnet access | Blocked | Passed |
 | 7 | Authorized ICMP | Allowed | Passed |
 
+OUTPUT AND RESULT:
+Result_1:
 
 ## Connectivity Test - PC3
 
@@ -212,7 +214,41 @@ flowchart LR
 | 2 | PC3 (192.168.10.13) | Unused Server (192.168.20.11) | Blocked - 100% loss |
 
 
+Result_2:
 
+## Connectivity Test Flow Chart
+
+```mermaid
+flowchart LR
+
+    A([Start]) --> B["PC3 - 192.168.10.13"]
+
+    B --> C["Ping 192.168.20.10"]
+
+    C --> D{"Response Received?"}
+
+    D -->|Yes| E["Reply Received<br/>Time: 1-11 ms<br/>TTL: 127"]
+
+    E --> F["Ping Statistics<br/>Sent: 4<br/>Received: 4<br/>Lost: 0<br/>0% Packet Loss"]
+
+    F --> G["Ping 192.168.20.11"]
+
+    G --> H{"Response Received?"}
+
+    H -->|No| I["Destination Host Unreachable"]
+
+    I --> J["Ping Statistics<br/>Sent: 4<br/>Received: 0<br/>Lost: 4<br/>100% Packet Loss"]
+
+    J --> K([End])
+```
+
+    ## Network Connectivity Test Results
+
+| Test No. | Destination IP | Packets Sent | Packets Received | Packets Lost | Packet Loss | Status |
+|---|---|---:|---:|---:|---:|---|
+| 1 | 192.168.20.10 | 4 | 3 | 1 | 25% | Initially Timed Out, Then Successful |
+| 2 | 192.168.20.10 | 4 | 4 | 0 | 0% | Successfully Connected |
+| 3 | 192.168.20.11 | 4 | 0 | 4 | 100% | Destination Host Unreachable |
 
 
 
